@@ -477,21 +477,21 @@
   }
   .view-nav-btn{
     flex:1;
-    max-width:280px;
+    max-width:200px;
     margin:0 auto;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:6px;
     background:transparent;
     border:none;
     border-bottom:3px solid transparent;
     color:#9fb3a5;
     font-family:'Oswald', sans-serif;
-    font-size:14px;
+    font-size:13px;
     font-weight:600;
-    letter-spacing:.03em;
-    padding:14px 10px;
+    letter-spacing:.02em;
+    padding:14px 6px;
     cursor:pointer;
     transition:all .15s ease;
   }
@@ -507,6 +507,31 @@
     background:
       radial-gradient(circle at 85% 20%, rgba(255,255,255,0.05), transparent 40%),
       linear-gradient(180deg, var(--teal-2) 0%, #0c2320 100%);
+  }
+  .equipment-hero{
+    background:
+      radial-gradient(circle at 15% 80%, rgba(255,255,255,0.05), transparent 40%),
+      linear-gradient(180deg, var(--slate-2) 0%, #1c2436 100%);
+  }
+  .equipment-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:4px solid var(--slate);
+    border-radius:6px;
+    padding:14px 16px;
+    margin-bottom:10px;
+  }
+  .equipment-title{
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .equipment-brand{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:#7a8a7d;
+    margin-bottom:8px;
   }
   .venue-card{
     background:var(--white);
@@ -534,6 +559,125 @@
   }
   .venue-meta span{display:inline-flex; align-items:center; gap:4px;}
   .venue-note{font-size:12.5px; color:#7a8a7d;}
+
+  /* ---------- REVIEWS ---------- */
+  .venue-rating{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:8px;
+  }
+  .stars{
+    font-size:15px;
+    letter-spacing:1px;
+    color:#d9d9d0;
+  }
+  .stars .filled{color:var(--amber2);}
+  .rating-text{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:#556357;
+  }
+  .rating-text b{color:var(--ink); font-size:13px;}
+  .no-rating{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:#a8b3a2;
+  }
+  .venue-reviews{margin-top:10px;}
+  .venue-reviews summary{
+    cursor:pointer;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--teal-2);
+    font-weight:600;
+    list-style:none;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .venue-reviews summary::-webkit-details-marker{display:none;}
+  .venue-reviews summary::before{content:"▸"; transition:transform .15s ease;}
+  .venue-reviews[open] summary::before{transform:rotate(90deg);}
+  .review-panel{
+    margin-top:10px;
+    padding:12px;
+    background:var(--paper);
+    border-radius:6px;
+    border:1px solid var(--line);
+  }
+  .review-item{
+    padding:8px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:12.5px;
+  }
+  .review-item:last-child{border-bottom:none;}
+  .review-item-head{display:flex; align-items:center; gap:8px; margin-bottom:3px;}
+  .review-item-date{font-family:'JetBrains Mono', monospace; font-size:10.5px; color:#a8b3a2;}
+  .review-item-text{color:#3d4a3f;}
+  .review-empty{font-size:12px; color:#a8b3a2; padding:4px 0 10px;}
+  .review-form{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  .review-form-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:#7a8a7d;
+    margin-bottom:6px;
+  }
+  .star-picker{display:flex; gap:4px; margin-bottom:8px;}
+  .star-picker button{
+    background:none;
+    border:none;
+    font-size:22px;
+    line-height:1;
+    color:#d9d9d0;
+    cursor:pointer;
+    padding:2px;
+  }
+  .star-picker button.on{color:var(--amber2);}
+  .review-form textarea{
+    width:100%;
+    min-height:56px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:8px 10px;
+    font-family:'Noto Sans JP', sans-serif;
+    font-size:12.5px;
+    resize:vertical;
+    margin-bottom:8px;
+    box-sizing:border-box;
+  }
+  .review-submit-btn{
+    font-family:'Oswald', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    background:var(--teal);
+    color:var(--white);
+    border:none;
+    border-radius:20px;
+    padding:8px 18px;
+    cursor:pointer;
+  }
+  .review-submit-btn:hover{opacity:.85;}
+  .review-form-note{
+    font-size:10.5px;
+    color:#a8b3a2;
+    margin-top:6px;
+  }
+  .sort-row{display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
+  .sort-row label{font-family:'JetBrains Mono', monospace; font-size:11px; color:#7a8a7d;}
+  .sort-row select{
+    font-family:'Noto Sans JP', sans-serif;
+    font-size:12.5px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:5px 8px;
+    background:var(--white);
+    color:var(--ink);
+  }
 </style>
 </head>
 <body>
@@ -545,6 +689,9 @@
   </button>
   <button class="view-nav-btn" id="nav-venues" data-view="venues" aria-pressed="false">
     <span class="view-nav-icon">📍</span><span id="t-nav-venues">練習場所</span>
+  </button>
+  <button class="view-nav-btn" id="nav-equipment" data-view="equipment" aria-pressed="false">
+    <span class="view-nav-icon">🏓</span><span id="t-nav-equipment">用具</span>
   </button>
 </nav>
 
@@ -693,6 +840,14 @@
       <button class="pref-tab" data-vtype="school"><span id="t-vtype-school">卓球教室</span></button>
     </div>
   </div>
+  <div class="sort-row">
+    <label id="t-v-sort-label">並び替え：</label>
+    <select id="v-sort">
+      <option value="default" id="t-v-sort-default">おすすめ順</option>
+      <option value="rating" id="t-v-sort-rating">評価が高い順</option>
+      <option value="reviews" id="t-v-sort-reviews">口コミが多い順</option>
+    </select>
+  </div>
   <div class="count-line" id="v-count-line"></div>
 </div>
 
@@ -700,6 +855,46 @@
 
 <p class="note" id="t-v-note">※ 台数・営業時間・料金は各施設のサイトや電話でご確認のうえお出かけください。掲載情報は変更されている場合があります。学校体育館などは、地域の卓球協会・卓球連盟を通じた団体利用が中心の施設も含まれます。</p>
 </div><!-- /view-venues -->
+
+<div id="view-equipment" style="display:none;">
+<header class="hero equipment-hero">
+  <div class="hero-inner">
+    <div class="eyebrow" id="t-eq-eyebrow">ATLAS · 用具コメント</div>
+    <h1 id="t-eq-h1">卓球用具の<br>クチコミ</h1>
+    <p class="sub" id="t-eq-sub">ラケット・ラバー・シューズなど、卓球用具についての感想やレビューを書き込める掲示板です。実際に使った方の生の声を参考にできます。</p>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="search-row">
+    <input id="eq-search" type="text" placeholder="用具名・ブランド名で検索（例：テナジー、ヴィスカリア、Butterfly）">
+  </div>
+  <div class="filter-group">
+    <div class="filter-group-label" id="t-eq-step1">種類で絞り込む</div>
+    <div class="pref-tabs" id="eq-cat-tabs">
+      <button class="pref-tab" data-eqcat="all" aria-pressed="true"><span id="t-eqcat-all">すべて</span></button>
+      <button class="pref-tab" data-eqcat="blade"><span id="t-eqcat-blade">ラケット</span></button>
+      <button class="pref-tab" data-eqcat="rubber"><span id="t-eqcat-rubber">ラバー</span></button>
+      <button class="pref-tab" data-eqcat="shoes"><span id="t-eqcat-shoes">シューズ</span></button>
+      <button class="pref-tab" data-eqcat="ball"><span id="t-eqcat-ball">ボール</span></button>
+      <button class="pref-tab" data-eqcat="other"><span id="t-eqcat-other">その他用品</span></button>
+    </div>
+  </div>
+  <div class="sort-row">
+    <label id="t-eq-sort-label">並び替え：</label>
+    <select id="eq-sort">
+      <option value="default" id="t-eq-sort-default">おすすめ順</option>
+      <option value="rating" id="t-eq-sort-rating">評価が高い順</option>
+      <option value="reviews" id="t-eq-sort-reviews">口コミが多い順</option>
+    </select>
+  </div>
+  <div class="count-line" id="eq-count-line"></div>
+</div>
+
+<main class="list" id="eq-list"></main>
+
+<p class="note" id="t-eq-note">※ 掲載している用具は代表的な製品の一例です。ここに無い用具について書き込みたい場合や、掲載情報に誤りがある場合はご連絡ください。評価・口コミはご利用中のブラウザに保存され、他の方とは共有されません。</p>
+</div><!-- /view-equipment -->
 
 <script>
 const events = [
@@ -1408,10 +1603,12 @@ document.getElementById("lang-toggle").addEventListener("click", ()=>{
   lang = (lang === "ja") ? "en" : "ja";
   applyStaticText();
   applyVenueStaticText();
+  applyEquipmentStaticText();
   updateCountdown();
   render();
   renderTBD();
   renderVenues();
+  renderEquipment();
 });
 
 // ============================================================
@@ -1512,6 +1709,7 @@ const VENUES = [
 let activeVPref = "all";
 let activeVType = "all";
 let vQuery = "";
+let vSort = "default";
 
 const VTYPE_LABEL = {
   ja: {gym:"体育館", club:"卓球場・クラブ", school:"卓球教室"},
@@ -1522,10 +1720,51 @@ const VPREF_LABEL = {
   en: {wakayama:"Wakayama", nara:"Nara", osaka:"Osaka", hyogo:"Hyogo", shiga:"Shiga", kyoto:"Kyoto"}
 };
 
+// ============================================================
+// 評価・口コミ（このブラウザ内に保存されます — 他の閲覧者とは共有されません）
+// ============================================================
+const REVIEWS_KEY = "atlas_venue_reviews_v1";
+
+function venueKey(v){ return v.pref + "|" + v.name; }
+
+function loadAllReviews(){
+  try{
+    const raw = localStorage.getItem(REVIEWS_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveAllReviews(all){
+  try{ localStorage.setItem(REVIEWS_KEY, JSON.stringify(all)); }catch(e){ /* storage unavailable */ }
+}
+function getVenueReviews(key){
+  const all = loadAllReviews();
+  return all[key] || [];
+}
+function addVenueReview(key, stars, comment){
+  const all = loadAllReviews();
+  if(!all[key]) all[key] = [];
+  all[key].push({stars, comment, date: new Date().toISOString().slice(0,10)});
+  saveAllReviews(all);
+}
+function getVenueStats(key){
+  const reviews = getVenueReviews(key);
+  if(reviews.length === 0) return {avg:0, count:0};
+  const sum = reviews.reduce((s,r)=>s+r.stars, 0);
+  return {avg: sum/reviews.length, count: reviews.length};
+}
+function renderStarsHtml(avg){
+  let html = '<span class="stars">';
+  for(let i=1; i<=5; i++){
+    html += `<span class="${i <= Math.round(avg) ? "filled" : ""}">★</span>`;
+  }
+  html += '</span>';
+  return html;
+}
+
 function renderVenues(){
   const listEl = document.getElementById("v-list");
   const countLine = document.getElementById("v-count-line");
-  const filtered = VENUES.filter(v=>{
+  let filtered = VENUES.filter(v=>{
     if(activeVPref!=="all" && v.pref!==activeVPref) return false;
     if(activeVType!=="all" && v.type!==activeVType) return false;
     if(vQuery){
@@ -1537,6 +1776,14 @@ function renderVenues(){
     return true;
   });
 
+  // 評価・口コミ数を紐付けてから並び替え
+  filtered = filtered.map(v => ({v, stats: getVenueStats(venueKey(v))}));
+  if(vSort === "rating"){
+    filtered.sort((a,b)=> b.stats.avg - a.stats.avg || b.stats.count - a.stats.count);
+  }else if(vSort === "reviews"){
+    filtered.sort((a,b)=> b.stats.count - a.stats.count);
+  }
+
   const countText = lang==="en" ? `Showing ${filtered.length} location(s)` : `${filtered.length}件の施設を表示中`;
   countLine.textContent = countText;
 
@@ -1547,11 +1794,14 @@ function renderVenues(){
 
   let html = "";
   let currentPref = "";
-  filtered.forEach(v=>{
-    const prefKey = VPREF_LABEL[lang][v.pref];
-    if(prefKey !== currentPref){
-      html += `<div class="month-heading">${prefKey}</div>`;
-      currentPref = prefKey;
+  const groupByPref = (vSort === "default");
+  filtered.forEach(({v, stats})=>{
+    if(groupByPref){
+      const prefKey = VPREF_LABEL[lang][v.pref];
+      if(prefKey !== currentPref){
+        html += `<div class="month-heading">${prefKey}</div>`;
+        currentPref = prefKey;
+      }
     }
     const name = lang==="en" ? v.nameEn : v.name;
     const address = lang==="en" ? v.addressEn : v.address;
@@ -1560,6 +1810,22 @@ function renderVenues(){
     const note = lang==="en" ? v.noteEn : v.note;
     const typeLabel = VTYPE_LABEL[lang][v.type];
     const telLine = (v.tel && v.tel !== "要問合せ") ? v.tel : (lang==="en" ? "Call to confirm" : "要問合せ");
+    const key = venueKey(v);
+    const reviews = getVenueReviews(key);
+
+    const ratingHtml = stats.count > 0
+      ? `${renderStarsHtml(stats.avg)}<span class="rating-text"><b>${stats.avg.toFixed(1)}</b> (${stats.count}${lang==="en" ? " reviews" : "件"})</span>`
+      : `<span class="no-rating">${lang==="en" ? "No reviews yet" : "まだ評価がありません"}</span>`;
+
+    const reviewsListHtml = reviews.length > 0
+      ? reviews.slice().reverse().map(r => `
+          <div class="review-item">
+            <div class="review-item-head">${renderStarsHtml(r.stars)}<span class="review-item-date">${r.date}</span></div>
+            ${r.comment ? `<div class="review-item-text">${r.comment.replace(/</g,"&lt;")}</div>` : ""}
+          </div>`).join("")
+      : `<div class="review-empty">${lang==="en" ? "No reviews yet. Be the first to write one!" : "まだ口コミがありません。最初の口コミを書いてみませんか？"}</div>`;
+
+    const summaryLabel = lang==="en" ? `Reviews & Ratings (${reviews.length})` : `口コミ・評価を見る（${reviews.length}件）`;
 
     html += `
     <div class="venue-card type-${v.type}">
@@ -1571,19 +1837,69 @@ function renderVenues(){
         <span>🕒 ${hours}</span>
         <span>☎ ${telLine}</span>
       </div>
+      <div class="venue-rating">${ratingHtml}</div>
       <div class="venue-note">${note}</div>
       <div class="card-links" style="margin-top:8px;">
         <a href="${v.link}" target="_blank" rel="noopener">${lang==="en" ? "More info ↗" : "詳細を見る ↗"}</a>
       </div>
+      <details class="venue-reviews">
+        <summary>${summaryLabel}</summary>
+        <div class="review-panel">
+          ${reviewsListHtml}
+          <div class="review-form">
+            <div class="review-form-label">${lang==="en" ? "Rate this venue" : "この施設を評価する"}</div>
+            <div class="star-picker" data-key="${key.replace(/"/g,"&quot;")}" data-selected="0">
+              ${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}">★</button>`).join("")}
+            </div>
+            <textarea class="review-textarea" placeholder="${lang==="en" ? "Optional comment (e.g. table count, atmosphere, tips)" : "コメント（任意）— 台数や雰囲気、行ってみた感想など"}"></textarea>
+            <button type="button" class="review-submit-btn" data-key="${key.replace(/"/g,"&quot;")}">${lang==="en" ? "Submit review" : "口コミを投稿する"}</button>
+            <div class="review-form-note">${lang==="en" ? "Saved to this browser only — not shared with other visitors." : "この評価はご利用中のブラウザにのみ保存されます。他の方の画面には表示されません。"}</div>
+          </div>
+        </div>
+      </details>
     </div>`;
   });
   listEl.innerHTML = html;
 }
 
+// 星ピッカーのクリック（イベント委譲）
+document.getElementById("v-list").addEventListener("click", (e)=>{
+  const starBtn = e.target.closest(".star-picker button");
+  if(starBtn){
+    const picker = starBtn.closest(".star-picker");
+    const val = parseInt(starBtn.dataset.star, 10);
+    picker.dataset.selected = val;
+    picker.querySelectorAll("button").forEach(b=>{
+      b.classList.toggle("on", parseInt(b.dataset.star,10) <= val);
+    });
+    return;
+  }
+  const submitBtn = e.target.closest(".review-submit-btn");
+  if(submitBtn){
+    const key = submitBtn.dataset.key;
+    const panel = submitBtn.closest(".review-form");
+    const picker = panel.querySelector(".star-picker");
+    const stars = parseInt(picker.dataset.selected, 10) || 0;
+    const textarea = panel.querySelector(".review-textarea");
+    const comment = textarea.value.trim();
+    if(stars < 1){
+      alert(lang==="en" ? "Please select a star rating first." : "先に星の数を選んでください。");
+      return;
+    }
+    addVenueReview(key, stars, comment);
+    renderVenues();
+  }
+});
+
+document.getElementById("v-sort").addEventListener("change", (e)=>{
+  vSort = e.target.value;
+  renderVenues();
+});
+
 function applyVenueStaticText(){
   const T = {
-    ja: {navT:"大会情報", navV:"練習場所", eyebrow:"ATLAS · 練習場所ガイド", h1:"卓球ができる<br>場所を探す", sub:"近畿地方で卓球ができる体育館・卓球場・卓球教室をまとめました。台数や営業時間は変更されている場合があるため、訪問前に各施設へご確認ください。", step1:"都道府県を選ぶ", step2:"種類で絞り込む", vAll:"すべて", vGym:"体育館", vClub:"卓球場・クラブ", vSchool:"卓球教室", note:"※ 台数・営業時間・料金は各施設のサイトや電話でご確認のうえお出かけください。掲載情報は変更されている場合があります。学校体育館などは、地域の卓球協会・卓球連盟を通じた団体利用が中心の施設も含まれます。"},
-    en: {navT:"Tournaments", navV:"Practice Venues", eyebrow:"ATLAS · Practice Venue Guide", h1:"Find a Place<br>to Play Table Tennis", sub:"A list of gymnasiums, table tennis clubs, and schools across the Kansai region. Table counts and hours may have changed, so please confirm with each venue before visiting.", step1:"Choose a Prefecture", step2:"Filter by Type", vAll:"All", vGym:"Gymnasium", vClub:"Court / Club", vSchool:"School", note:"※ Please confirm table counts, hours, and fees directly with each venue before visiting, as listed details may have changed. Some school gymnasiums are mainly available for group use through local table tennis associations."}
+    ja: {navT:"大会情報", navV:"練習場所", eyebrow:"ATLAS · 練習場所ガイド", h1:"卓球ができる<br>場所を探す", sub:"近畿地方で卓球ができる体育館・卓球場・卓球教室をまとめました。台数や営業時間は変更されている場合があるため、訪問前に各施設へご確認ください。", step1:"都道府県を選ぶ", step2:"種類で絞り込む", vAll:"すべて", vGym:"体育館", vClub:"卓球場・クラブ", vSchool:"卓球教室", note:"※ 台数・営業時間・料金は各施設のサイトや電話でご確認のうえお出かけください。掲載情報は変更されている場合があります。学校体育館などは、地域の卓球協会・卓球連盟を通じた団体利用が中心の施設も含まれます。評価・口コミはご利用中のブラウザに保存され、他の方とは共有されません。", sortLabel:"並び替え：", sortDefault:"おすすめ順", sortRating:"評価が高い順", sortReviews:"口コミが多い順"},
+    en: {navT:"Tournaments", navV:"Practice Venues", eyebrow:"ATLAS · Practice Venue Guide", h1:"Find a Place<br>to Play Table Tennis", sub:"A list of gymnasiums, table tennis clubs, and schools across the Kansai region. Table counts and hours may have changed, so please confirm with each venue before visiting.", step1:"Choose a Prefecture", step2:"Filter by Type", vAll:"All", vGym:"Gymnasium", vClub:"Court / Club", vSchool:"School", note:"※ Please confirm table counts, hours, and fees directly with each venue before visiting, as listed details may have changed. Some school gymnasiums are mainly available for group use through local table tennis associations. Ratings & reviews are saved to your own browser only and are not shared with other visitors.", sortLabel:"Sort by:", sortDefault:"Recommended", sortRating:"Highest rated", sortReviews:"Most reviewed"}
   };
   const t = T[lang];
   document.getElementById("t-nav-tournaments").textContent = t.navT;
@@ -1598,6 +1914,10 @@ function applyVenueStaticText(){
   document.getElementById("t-vtype-club").textContent = t.vClub;
   document.getElementById("t-vtype-school").textContent = t.vSchool;
   document.getElementById("t-v-note").textContent = t.note;
+  document.getElementById("t-v-sort-label").textContent = t.sortLabel;
+  document.getElementById("t-v-sort-default").textContent = t.sortDefault;
+  document.getElementById("t-v-sort-rating").textContent = t.sortRating;
+  document.getElementById("t-v-sort-reviews").textContent = t.sortReviews;
   document.getElementById("v-search").placeholder = lang==="en"
     ? "Search by facility or area name (e.g. Nara City, gymnasium, Ikoma)"
     : "施設名・地域名で検索（例：奈良市、体育館、生駒）";
@@ -1658,11 +1978,230 @@ document.querySelectorAll(".view-nav-btn").forEach(btn=>{
     const view = btn.dataset.view;
     document.getElementById("view-tournaments").style.display = (view==="tournaments") ? "" : "none";
     document.getElementById("view-venues").style.display = (view==="venues") ? "" : "none";
+    document.getElementById("view-equipment").style.display = (view==="equipment") ? "" : "none";
   });
 });
 
 applyVenueStaticText();
 renderVenues();
+
+// ============================================================
+// 卓球用具コメント（評価・口コミはこのブラウザ内に保存されます）
+// ============================================================
+const EQUIPMENT = [
+  {cat:"blade", brand:"Butterfly", name:"ヴィスカリア", nameEn:"Viscaria", note:"張本智和選手ら多くのトップ選手が使用する定番の攻撃用ラケット。", noteEn:"A staple attacking blade used by many top players, including Tomokazu Harimoto."},
+  {cat:"blade", brand:"Butterfly", name:"インナーフォース レイヤー ALC", nameEn:"Innerforce Layer ALC", note:"アリレートカーボンを内蔵した中級〜上級者向けラケット。", noteEn:"A blade with inner arylate carbon layers, popular among intermediate to advanced players."},
+  {cat:"blade", brand:"Nittaku", name:"大和", nameEn:"Yamato", note:"純木5枚合板の伝統的なドライブ向けラケット。", noteEn:"A traditional all-wood 5-ply blade suited for drive-style play."},
+  {cat:"blade", brand:"VICTAS", name:"コルベル", nameEn:"Korbel", note:"世界的に長く愛用されているオールラウンド向けラケット。", noteEn:"A long-loved all-round blade used worldwide."},
+  {cat:"blade", brand:"Yasaka", name:"マサル", nameEn:"Masaru", note:"馬琳選手が使用していたことで知られるラケット。", noteEn:"A blade known for having been used by Ma Lin."},
+  {cat:"blade", brand:"DHS", name:"Hurricane Long 5", nameEn:"Hurricane Long 5", note:"中国式のドライブ攻撃に向いたラケット。", noteEn:"A blade suited to Chinese-style drive attacking play."},
+  {cat:"rubber", brand:"Butterfly", name:"テナジー05", nameEn:"Tenergy 05", note:"回転量の多さで知られる定番の高性能裏ソフトラバー。", noteEn:"A well-known high-performance inverted rubber, known for its heavy spin."},
+  {cat:"rubber", brand:"Butterfly", name:"テナジー05FX", nameEn:"Tenergy 05 FX", note:"05よりスポンジが柔らかく、引っかかりの良さが特徴。", noteEn:"Softer sponge than the 05, known for good ball-grabbing feel."},
+  {cat:"rubber", brand:"Nittaku", name:"ファスタークG-1", nameEn:"Fastarc G-1", note:"安定感とスピードのバランスに定評がある裏ソフトラバー。", noteEn:"An inverted rubber known for its balance of stability and speed."},
+  {cat:"rubber", brand:"VICTAS", name:"VO>102", nameEn:"VO>102", note:"幅広いレベルの選手に使われるテンション系ラバー。", noteEn:"A tension-type rubber used by players across a wide range of levels."},
+  {cat:"rubber", brand:"Yasaka", name:"ラクザ7", nameEn:"Rakza 7", note:"扱いやすさで人気のあるテンション系裏ソフトラバー。", noteEn:"A tension-type inverted rubber popular for its ease of control."},
+  {cat:"rubber", brand:"DHS", name:"Hurricane 3", nameEn:"Hurricane 3", note:"中国選手の使用率が高い粘着系ラバーの代表格。", noteEn:"A representative tacky rubber widely used by Chinese players."},
+  {cat:"ball", brand:"Nittaku", name:"プレミアム3スターボール", nameEn:"Premium 3-Star Ball", note:"国内の公式戦でも使われるプラスチックボール。", noteEn:"A plastic ball also used in official domestic tournaments."},
+  {cat:"ball", brand:"Butterfly", name:"G40+", nameEn:"G40+", note:"世界卓球など国際大会でも採用実績のあるボール。", noteEn:"A ball that has been used at international events including World Table Tennis Championships."},
+  {cat:"ball", brand:"DHS", name:"D40+", nameEn:"D40+", note:"オリンピックなど国際大会での採用実績があるボール。", noteEn:"A ball used at international events including the Olympics."},
+  {cat:"shoes", brand:"Butterfly", name:"ライザーシリーズ", nameEn:"Lezoline Series", note:"軽量さとグリップ力に定評のある卓球シューズシリーズ。", noteEn:"A table tennis shoe line known for its light weight and grip."},
+  {cat:"shoes", brand:"Nittaku", name:"ラングシリーズ", nameEn:"Langold Series", note:"クッション性と安定性を重視したシューズシリーズ。", noteEn:"A shoe line that emphasizes cushioning and stability."},
+  {cat:"shoes", brand:"Yonex", name:"パワークッションシリーズ", nameEn:"Power Cushion Series", note:"独自クッション素材を使用した卓球シューズシリーズ。", noteEn:"A table tennis shoe line using Yonex's proprietary cushioning material."},
+  {cat:"other", brand:"Butterfly", name:"グリップテープ", nameEn:"Grip Tape", note:"グリップの太さ調整や滑り止めに使う定番アイテム。", noteEn:"A common item used to adjust grip thickness or improve slip resistance."},
+  {cat:"other", brand:"各社", name:"ラケットケース／バッグ", nameEn:"Racket Case / Bag", note:"ラケットやシューズをまとめて持ち運ぶための卓球バッグ。", noteEn:"A table tennis bag for carrying rackets, shoes, and other gear together."},
+];
+
+let activeEqCat = "all";
+let eqQuery = "";
+let eqSort = "default";
+
+const EQCAT_LABEL = {
+  ja: {blade:"ラケット", rubber:"ラバー", shoes:"シューズ", ball:"ボール", other:"その他用品"},
+  en: {blade:"Blade", rubber:"Rubber", shoes:"Shoes", ball:"Ball", other:"Other Gear"}
+};
+
+const EQ_REVIEWS_KEY = "atlas_equipment_reviews_v1";
+function equipmentKey(item){ return item.cat + "|" + item.name; }
+function loadAllEqReviews(){
+  try{ const raw = localStorage.getItem(EQ_REVIEWS_KEY); return raw ? JSON.parse(raw) : {}; }catch(e){ return {}; }
+}
+function saveAllEqReviews(all){
+  try{ localStorage.setItem(EQ_REVIEWS_KEY, JSON.stringify(all)); }catch(e){ /* storage unavailable */ }
+}
+function getEqReviews(key){ const all = loadAllEqReviews(); return all[key] || []; }
+function addEqReview(key, stars, comment){
+  const all = loadAllEqReviews();
+  if(!all[key]) all[key] = [];
+  all[key].push({stars, comment, date: new Date().toISOString().slice(0,10)});
+  saveAllEqReviews(all);
+}
+function getEqStats(key){
+  const reviews = getEqReviews(key);
+  if(reviews.length === 0) return {avg:0, count:0};
+  const sum = reviews.reduce((s,r)=>s+r.stars, 0);
+  return {avg: sum/reviews.length, count: reviews.length};
+}
+
+function renderEquipment(){
+  const listEl = document.getElementById("eq-list");
+  const countLine = document.getElementById("eq-count-line");
+  let filtered = EQUIPMENT.filter(item=>{
+    if(activeEqCat!=="all" && item.cat!==activeEqCat) return false;
+    if(eqQuery){
+      const q = eqQuery.toLowerCase();
+      const name = (lang==="en" ? item.nameEn : item.name).toLowerCase();
+      const brand = item.brand.toLowerCase();
+      if(!(name.includes(q) || brand.includes(q))) return false;
+    }
+    return true;
+  });
+
+  filtered = filtered.map(item => ({item, stats: getEqStats(equipmentKey(item))}));
+  if(eqSort === "rating"){
+    filtered.sort((a,b)=> b.stats.avg - a.stats.avg || b.stats.count - a.stats.count);
+  }else if(eqSort === "reviews"){
+    filtered.sort((a,b)=> b.stats.count - a.stats.count);
+  }
+
+  const countText = lang==="en" ? `Showing ${filtered.length} item(s)` : `${filtered.length}件の用具を表示中`;
+  countLine.textContent = countText;
+
+  if(filtered.length===0){
+    listEl.innerHTML = `<div class="empty">${lang==="en" ? "No matching items found." : "該当する用具が見つかりませんでした。"}</div>`;
+    return;
+  }
+
+  let html = "";
+  let currentCat = "";
+  const groupByCat = (eqSort === "default");
+  filtered.forEach(({item, stats})=>{
+    if(groupByCat){
+      const catKey = EQCAT_LABEL[lang][item.cat];
+      if(catKey !== currentCat){
+        html += `<div class="month-heading">${catKey}</div>`;
+        currentCat = catKey;
+      }
+    }
+    const name = lang==="en" ? item.nameEn : item.name;
+    const note = lang==="en" ? item.noteEn : item.note;
+    const catLabel = EQCAT_LABEL[lang][item.cat];
+    const key = equipmentKey(item);
+    const reviews = getEqReviews(key);
+
+    const ratingHtml = stats.count > 0
+      ? `${renderStarsHtml(stats.avg)}<span class="rating-text"><b>${stats.avg.toFixed(1)}</b> (${stats.count}${lang==="en" ? " reviews" : "件"})</span>`
+      : `<span class="no-rating">${lang==="en" ? "No reviews yet" : "まだ評価がありません"}</span>`;
+
+    const reviewsListHtml = reviews.length > 0
+      ? reviews.slice().reverse().map(r => `
+          <div class="review-item">
+            <div class="review-item-head">${renderStarsHtml(r.stars)}<span class="review-item-date">${r.date}</span></div>
+            ${r.comment ? `<div class="review-item-text">${r.comment.replace(/</g,"&lt;")}</div>` : ""}
+          </div>`).join("")
+      : `<div class="review-empty">${lang==="en" ? "No reviews yet. Be the first to write one!" : "まだ口コミがありません。最初の口コミを書いてみませんか？"}</div>`;
+
+    const summaryLabel = lang==="en" ? `Reviews & Ratings (${reviews.length})` : `口コミ・評価を見る（${reviews.length}件）`;
+
+    html += `
+    <div class="equipment-card">
+      <div class="equipment-title">${name}</div>
+      <div class="equipment-brand"><span class="badge badge-e">${catLabel}</span> ${item.brand}</div>
+      <div class="venue-rating">${ratingHtml}</div>
+      <div class="venue-note">${note}</div>
+      <details class="venue-reviews">
+        <summary>${summaryLabel}</summary>
+        <div class="review-panel">
+          ${reviewsListHtml}
+          <div class="review-form">
+            <div class="review-form-label">${lang==="en" ? "Rate this item" : "この用具を評価する"}</div>
+            <div class="star-picker" data-key="${key.replace(/"/g,"&quot;")}" data-selected="0">
+              ${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}">★</button>`).join("")}
+            </div>
+            <textarea class="review-textarea" placeholder="${lang==="en" ? "Optional comment (e.g. feel, durability, who it suits)" : "コメント（任意）— 使用感や耐久性、向いているプレースタイルなど"}"></textarea>
+            <button type="button" class="eq-review-submit-btn" data-key="${key.replace(/"/g,"&quot;")}">${lang==="en" ? "Submit review" : "口コミを投稿する"}</button>
+            <div class="review-form-note">${lang==="en" ? "Saved to this browser only — not shared with other visitors." : "この評価はご利用中のブラウザにのみ保存されます。他の方の画面には表示されません。"}</div>
+          </div>
+        </div>
+      </details>
+    </div>`;
+  });
+  listEl.innerHTML = html;
+}
+
+document.getElementById("eq-list").addEventListener("click", (e)=>{
+  const starBtn = e.target.closest(".star-picker button");
+  if(starBtn){
+    const picker = starBtn.closest(".star-picker");
+    const val = parseInt(starBtn.dataset.star, 10);
+    picker.dataset.selected = val;
+    picker.querySelectorAll("button").forEach(b=>{
+      b.classList.toggle("on", parseInt(b.dataset.star,10) <= val);
+    });
+    return;
+  }
+  const submitBtn = e.target.closest(".eq-review-submit-btn");
+  if(submitBtn){
+    const key = submitBtn.dataset.key;
+    const panel = submitBtn.closest(".review-form");
+    const picker = panel.querySelector(".star-picker");
+    const stars = parseInt(picker.dataset.selected, 10) || 0;
+    const textarea = panel.querySelector(".review-textarea");
+    const comment = textarea.value.trim();
+    if(stars < 1){
+      alert(lang==="en" ? "Please select a star rating first." : "先に星の数を選んでください。");
+      return;
+    }
+    addEqReview(key, stars, comment);
+    renderEquipment();
+  }
+});
+
+document.querySelectorAll("#eq-cat-tabs .pref-tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll("#eq-cat-tabs .pref-tab").forEach(b=>b.setAttribute("aria-pressed","false"));
+    btn.setAttribute("aria-pressed","true");
+    activeEqCat = btn.dataset.eqcat;
+    renderEquipment();
+  });
+});
+document.getElementById("eq-sort").addEventListener("change", (e)=>{
+  eqSort = e.target.value;
+  renderEquipment();
+});
+document.getElementById("eq-search").addEventListener("input", (e)=>{
+  eqQuery = e.target.value.trim();
+  renderEquipment();
+});
+
+function applyEquipmentStaticText(){
+  const T = {
+    ja: {eyebrow:"ATLAS · 用具コメント", h1:"卓球用具の<br>クチコミ", sub:"ラケット・ラバー・シューズなど、卓球用具についての感想やレビューを書き込める掲示板です。実際に使った方の生の声を参考にできます。", step1:"種類で絞り込む", catAll:"すべて", catBlade:"ラケット", catRubber:"ラバー", catShoes:"シューズ", catBall:"ボール", catOther:"その他用品", sortLabel:"並び替え：", sortDefault:"おすすめ順", sortRating:"評価が高い順", sortReviews:"口コミが多い順", note:"※ 掲載している用具は代表的な製品の一例です。ここに無い用具について書き込みたい場合や、掲載情報に誤りがある場合はご連絡ください。評価・口コミはご利用中のブラウザに保存され、他の方とは共有されません。", navEq:"用具"},
+    en: {eyebrow:"ATLAS · Equipment Reviews", h1:"Table Tennis<br>Equipment Reviews", sub:"A board for sharing impressions and reviews of table tennis equipment — blades, rubbers, shoes, and more. Read real feedback from people who have actually used them.", step1:"Filter by Type", catAll:"All", catBlade:"Blades", catRubber:"Rubbers", catShoes:"Shoes", catBall:"Balls", catOther:"Other Gear", sortLabel:"Sort by:", sortDefault:"Recommended", sortRating:"Highest rated", sortReviews:"Most reviewed", note:"※ The items listed here are a representative selection, not an exhaustive catalog. Let us know if you'd like an item added or notice an error. Ratings & reviews are saved to your own browser only and are not shared with other visitors.", navEq:"Equipment"}
+  };
+  const t = T[lang];
+  document.getElementById("t-eq-eyebrow").textContent = t.eyebrow;
+  document.getElementById("t-eq-h1").innerHTML = t.h1;
+  document.getElementById("t-eq-sub").textContent = t.sub;
+  document.getElementById("t-eq-step1").textContent = t.step1;
+  document.getElementById("t-eqcat-all").textContent = t.catAll;
+  document.getElementById("t-eqcat-blade").textContent = t.catBlade;
+  document.getElementById("t-eqcat-rubber").textContent = t.catRubber;
+  document.getElementById("t-eqcat-shoes").textContent = t.catShoes;
+  document.getElementById("t-eqcat-ball").textContent = t.catBall;
+  document.getElementById("t-eqcat-other").textContent = t.catOther;
+  document.getElementById("t-eq-sort-label").textContent = t.sortLabel;
+  document.getElementById("t-eq-sort-default").textContent = t.sortDefault;
+  document.getElementById("t-eq-sort-rating").textContent = t.sortRating;
+  document.getElementById("t-eq-sort-reviews").textContent = t.sortReviews;
+  document.getElementById("t-eq-note").textContent = t.note;
+  document.getElementById("t-nav-equipment").textContent = t.navEq;
+  document.getElementById("eq-search").placeholder = lang==="en"
+    ? "Search by item or brand name (e.g. Tenergy, Viscaria, Butterfly)"
+    : "用具名・ブランド名で検索（例：テナジー、ヴィスカリア、Butterfly）";
+}
+
+applyEquipmentStaticText();
+renderEquipment();
 
 applyStaticText();
 syncPrefUI();
