@@ -896,7 +896,100 @@
 <p class="note" id="t-eq-note">※ 掲載している用具は代表的な製品の一例です。ここに無い用具について書き込みたい場合や、掲載情報に誤りがある場合はご連絡ください。評価・口コミはご利用中のブラウザに保存され、他の方とは共有されません。</p>
 </div><!-- /view-equipment -->
 
+<!-- 評価・口コミをみんなで共有するためのFirebase SDK（設定は下のscriptタグ内 firebaseConfig で行います） -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
 <script>
+// ============================================================
+// 評価・口コミを「みんなで共有」するための設定（Firebase Realtime Database）
+// ------------------------------------------------------------
+// 下の値を、ご自身のFirebaseプロジェクトの値に書き換えてください。
+// 書き換える前（初期状態）は自動的に「この端末だけに保存」モードで動作するので、
+// サイトが壊れることはありません。設定方法はチャットでの説明を参照してください。
+// ============================================================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID"
+};
+
+let fbEnabled = false;
+let fbDb = null;
+try{
+  if(firebaseConfig.apiKey !== "YOUR_API_KEY" && typeof firebase !== "undefined"){
+    firebase.initializeApp(firebaseConfig);
+    fbDb = firebase.database();
+    fbEnabled = true;
+  }
+}catch(e){
+  fbEnabled = false;
+  console.warn("Firebaseへの接続に失敗したため、この端末だけに保存するモードで動作します。", e);
+}
+
+// Firebase Realtime DatabaseのキーにNGな文字（. # $ [ ] /）を安全な文字に置き換える
+function sanitizeReviewKey(key){
+  return key.replace(/[.#$\[\]\/]/g, "_");
+}
+
+// 施設用・用具用、共通のレビュー保存の仕組み
+function createReviewStore(localStorageKey, firebasePath){
+  let cache = {};
+  const listeners = [];
+
+  function loadLocal(){
+    try{ const raw = localStorage.getItem(localStorageKey); return raw ? JSON.parse(raw) : {}; }
+    catch(e){ return {}; }
+  }
+  function saveLocal(all){
+    try{ localStorage.setItem(localStorageKey, JSON.stringify(all)); }catch(e){ /* storage unavailable */ }
+  }
+  function notify(){ listeners.forEach(fn=>fn()); }
+
+  if(fbEnabled){
+    fbDb.ref(firebasePath).on("value", (snapshot)=>{
+      const val = snapshot.val() || {};
+      const converted = {};
+      Object.keys(val).forEach(k=>{
+        converted[k] = Object.keys(val[k]).map(id => val[k][id]);
+      });
+      cache = converted;
+      notify();
+    }, (err)=>{
+      console.warn("Firebaseからの読み込みに失敗しました。この端末の保存内容を表示します。", err);
+      fbEnabled = false;
+      cache = loadLocal();
+      notify();
+    });
+  }else{
+    cache = loadLocal();
+  }
+
+  return {
+    getReviews(key){
+      return cache[sanitizeReviewKey(key)] || [];
+    },
+    addReview(key, stars, comment){
+      const k = sanitizeReviewKey(key);
+      const entry = {stars, comment, date: new Date().toISOString().slice(0,10)};
+      if(fbEnabled){
+        fbDb.ref(firebasePath + "/" + k).push(entry);
+        // 保存後はonの購読が自動でcacheとUIを更新します
+      }else{
+        if(!cache[k]) cache[k] = [];
+        cache[k].push(entry);
+        saveLocal(cache);
+        notify();
+      }
+    },
+    onUpdate(fn){ listeners.push(fn); },
+    isShared(){ return fbEnabled; }
+  };
+}
+
+const venueReviewStore = createReviewStore("atlas_venue_reviews_v1", "venueReviews");
+const equipmentReviewStore = createReviewStore("atlas_equipment_reviews_v1", "equipmentReviews");
+
 const events = [
   // ---- 和歌山県卓球協会 (source: a) ----
   {date:"2026-08-04", name:"第65回近畿卓球選手権大会〔高校3年生の部〕〔ジュニアの部(高校2年生以下)〕和歌山県予選会", nameEn:"65th Kinki Championship [HS 3rd Year Division] [Junior Division (HS 2nd Year & Under)] Wakayama Qualifier", venue:"県立体", venueEn:"Prefectural Gymnasium", deadline:"7/10（締切済）", deadlineDate:"2026-07-10", closed:true, source:"a", org:"jtta", pref:"wakayama", link:"https://www.watakukyo.com/wp-content/uploads/2026/summary/2026kinkichampionshipsjuniorQ.pdf"},
@@ -1721,37 +1814,20 @@ const VPREF_LABEL = {
 };
 
 // ============================================================
-// 評価・口コミ（このブラウザ内に保存されます — 他の閲覧者とは共有されません）
+// 評価・口コミ（Firebase設定済みならみんなで共有、未設定ならこの端末だけに保存）
 // ============================================================
-const REVIEWS_KEY = "atlas_venue_reviews_v1";
-
 function venueKey(v){ return v.pref + "|" + v.name; }
 
-function loadAllReviews(){
-  try{
-    const raw = localStorage.getItem(REVIEWS_KEY);
-    return raw ? JSON.parse(raw) : {};
-  }catch(e){ return {}; }
-}
-function saveAllReviews(all){
-  try{ localStorage.setItem(REVIEWS_KEY, JSON.stringify(all)); }catch(e){ /* storage unavailable */ }
-}
-function getVenueReviews(key){
-  const all = loadAllReviews();
-  return all[key] || [];
-}
-function addVenueReview(key, stars, comment){
-  const all = loadAllReviews();
-  if(!all[key]) all[key] = [];
-  all[key].push({stars, comment, date: new Date().toISOString().slice(0,10)});
-  saveAllReviews(all);
-}
+function getVenueReviews(key){ return venueReviewStore.getReviews(key); }
+function addVenueReview(key, stars, comment){ venueReviewStore.addReview(key, stars, comment); }
 function getVenueStats(key){
   const reviews = getVenueReviews(key);
   if(reviews.length === 0) return {avg:0, count:0};
   const sum = reviews.reduce((s,r)=>s+r.stars, 0);
   return {avg: sum/reviews.length, count: reviews.length};
 }
+venueReviewStore.onUpdate(()=>{ if(document.getElementById("v-list")) renderVenues(); });
+
 function renderStarsHtml(avg){
   let html = '<span class="stars">';
   for(let i=1; i<=5; i++){
@@ -1853,7 +1929,7 @@ function renderVenues(){
             </div>
             <textarea class="review-textarea" placeholder="${lang==="en" ? "Optional comment (e.g. table count, atmosphere, tips)" : "コメント（任意）— 台数や雰囲気、行ってみた感想など"}"></textarea>
             <button type="button" class="review-submit-btn" data-key="${key.replace(/"/g,"&quot;")}">${lang==="en" ? "Submit review" : "口コミを投稿する"}</button>
-            <div class="review-form-note">${lang==="en" ? "Saved to this browser only — not shared with other visitors." : "この評価はご利用中のブラウザにのみ保存されます。他の方の画面には表示されません。"}</div>
+            <div class="review-form-note">${venueReviewStore.isShared() ? (lang==="en" ? "Shared with all visitors to this site." : "この評価はサイトを見ている全員と共有されます。") : (lang==="en" ? "Saved to this browser only — not shared with other visitors." : "この評価はご利用中のブラウザにのみ保存されます。他の方の画面には表示されません。")}</div>
           </div>
         </div>
       </details>
@@ -1914,6 +1990,10 @@ function applyVenueStaticText(){
   document.getElementById("t-vtype-club").textContent = t.vClub;
   document.getElementById("t-vtype-school").textContent = t.vSchool;
   document.getElementById("t-v-note").textContent = t.note;
+  const vStatusText = venueReviewStore.isShared()
+    ? (lang==="en" ? " 🟢 Reviews are currently shared with everyone." : " 🟢 現在、口コミはサイトを見ている全員と共有されています。")
+    : (lang==="en" ? " 🔒 Reviews are currently saved to this browser only." : " 🔒 現在、口コミはご利用中のブラウザにのみ保存されています。");
+  document.getElementById("t-v-note").textContent += vStatusText;
   document.getElementById("t-v-sort-label").textContent = t.sortLabel;
   document.getElementById("t-v-sort-default").textContent = t.sortDefault;
   document.getElementById("t-v-sort-rating").textContent = t.sortRating;
@@ -2020,27 +2100,16 @@ const EQCAT_LABEL = {
   en: {blade:"Blade", rubber:"Rubber", shoes:"Shoes", ball:"Ball", other:"Other Gear"}
 };
 
-const EQ_REVIEWS_KEY = "atlas_equipment_reviews_v1";
 function equipmentKey(item){ return item.cat + "|" + item.name; }
-function loadAllEqReviews(){
-  try{ const raw = localStorage.getItem(EQ_REVIEWS_KEY); return raw ? JSON.parse(raw) : {}; }catch(e){ return {}; }
-}
-function saveAllEqReviews(all){
-  try{ localStorage.setItem(EQ_REVIEWS_KEY, JSON.stringify(all)); }catch(e){ /* storage unavailable */ }
-}
-function getEqReviews(key){ const all = loadAllEqReviews(); return all[key] || []; }
-function addEqReview(key, stars, comment){
-  const all = loadAllEqReviews();
-  if(!all[key]) all[key] = [];
-  all[key].push({stars, comment, date: new Date().toISOString().slice(0,10)});
-  saveAllEqReviews(all);
-}
+function getEqReviews(key){ return equipmentReviewStore.getReviews(key); }
+function addEqReview(key, stars, comment){ equipmentReviewStore.addReview(key, stars, comment); }
 function getEqStats(key){
   const reviews = getEqReviews(key);
   if(reviews.length === 0) return {avg:0, count:0};
   const sum = reviews.reduce((s,r)=>s+r.stars, 0);
   return {avg: sum/reviews.length, count: reviews.length};
 }
+equipmentReviewStore.onUpdate(()=>{ if(document.getElementById("eq-list")) renderEquipment(); });
 
 function renderEquipment(){
   const listEl = document.getElementById("eq-list");
@@ -2119,7 +2188,7 @@ function renderEquipment(){
             </div>
             <textarea class="review-textarea" placeholder="${lang==="en" ? "Optional comment (e.g. feel, durability, who it suits)" : "コメント（任意）— 使用感や耐久性、向いているプレースタイルなど"}"></textarea>
             <button type="button" class="eq-review-submit-btn" data-key="${key.replace(/"/g,"&quot;")}">${lang==="en" ? "Submit review" : "口コミを投稿する"}</button>
-            <div class="review-form-note">${lang==="en" ? "Saved to this browser only — not shared with other visitors." : "この評価はご利用中のブラウザにのみ保存されます。他の方の画面には表示されません。"}</div>
+            <div class="review-form-note">${equipmentReviewStore.isShared() ? (lang==="en" ? "Shared with all visitors to this site." : "この評価はサイトを見ている全員と共有されます。") : (lang==="en" ? "Saved to this browser only — not shared with other visitors." : "この評価はご利用中のブラウザにのみ保存されます。他の方の画面には表示されません。")}</div>
           </div>
         </div>
       </details>
@@ -2194,6 +2263,10 @@ function applyEquipmentStaticText(){
   document.getElementById("t-eq-sort-rating").textContent = t.sortRating;
   document.getElementById("t-eq-sort-reviews").textContent = t.sortReviews;
   document.getElementById("t-eq-note").textContent = t.note;
+  const eqStatusText = equipmentReviewStore.isShared()
+    ? (lang==="en" ? " 🟢 Reviews are currently shared with everyone." : " 🟢 現在、口コミはサイトを見ている全員と共有されています。")
+    : (lang==="en" ? " 🔒 Reviews are currently saved to this browser only." : " 🔒 現在、口コミはご利用中のブラウザにのみ保存されています。");
+  document.getElementById("t-eq-note").textContent += eqStatusText;
   document.getElementById("t-nav-equipment").textContent = t.navEq;
   document.getElementById("eq-search").placeholder = lang==="en"
     ? "Search by item or brand name (e.g. Tenergy, Viscaria, Butterfly)"
